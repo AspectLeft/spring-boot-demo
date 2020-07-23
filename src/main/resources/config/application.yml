@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+
+
+book:
+  name: Harry Potter
+  author: J. K. Rowling
+  isbn: ${random.uuid}
+  description: ${book.name} is about magic
+
+spring:
+  profiles:
+    active: dev
+  thymeleaf:
+    mode: HTML
+
+# application-{}.yml

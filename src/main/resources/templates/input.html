@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Input</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet"/>
+
+</head>
+<body>
+<div class="container align-self-center w-75">
+    <div class="card p-4 m-4">
+        <form action="/books" th:action="@{/books}" th:object="${book}" method="post" class="card-body">
+            <input type="hidden" th:value="*{id}" name="id">
+            <div class="form-group">
+                <label for="nameId">书名</label>
+                <input type="text" name="name" id="nameId" class="form-control" th:field="*{name}">
+            </div>
+            <div class="form-group">
+                <label for="authorId">作者</label>
+                <input type="text" name="author" id="authorId" class="form-control" th:field="*{author}">
+            </div>
+            <div class="form-group">
+                <label for="descriptionId">简介</label>
+                <input type="text" name="description" id="descriptionId" class="form-control" th:field="*{description}">
+            </div>
+            <div class="form-group">
+                <label for="statusId">状态</label>
+                <select name="status" id="statusId" class="form-control">
+                    <option value="0" th:selected="(*{status}==0)">想读</option>
+                    <option value="1" th:selected="(*{status}==1)">在读</option>
+                    <option value="2" th:selected="(*{status}==2)">已读</option>
+                </select>
+            </div>
+            <p class="text-center">
+                <button type="submit" class="btn btn-primary">提交</button>
+            </p>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>books</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet"/>
+
+</head>
+<body>
+<div class="container">
+    <h2 class="pb-2 mt-4 mb-2 border-bottom">书单列表</h2>
+    <div class="alert alert-success alert-dismissible fade show" th:unless="${#strings.isEmpty(message)}">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Cong! </strong>
+        <span th:text="${message}"></span>
+    </div>
+    <p class="text-right"><a th:href="@{/books/input}" class="btn btn-outline-primary" href="#">新建</a></p>
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>书名</th>
+            <th>作者</th>
+            <th>简介</th>
+            <th>状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--
+        iterStat:
+            count: 1, 2, 3...
+            index: 0, 1, 2...
+            size: books.size()
+            even/odd: f/t, t/f, f/t...
+            first/last
+        -->
+        <tr th:each="book,iterStat:${bookPage.content}" th:onclick="'window.location=\'' + @{/books/{id}(id=${book.id})} + '\''">
+            <td th:text="${iterStat.count}"></td>
+            <td ><a th:text="${book.name}" href="#" th:href="@{/books/{id}(id=${book.id})}"></a></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.description}"></td>
+            <td th:switch="${book.status}">
+                <span th:case="0">想读</span>
+                <span th:case="1">在读</span>
+                <span th:case="2">已读</span>
+                <span th:case="*">状态</span>
+            </td>
+            <td>
+                <a href="#" th:href="@{/books/{id}/input(id=${book.id})}">修改</a>&nbsp;
+                <a href="#" th:href="@{/books/{id}/delete(id=${book.id})}">删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${bookPage.first} ? disabled : _">
+                <a class="page-link" href="#" th:href="@{'/books?page=' + ${bookPage.number-1}}">Previous</a></li>
+            <li class="page-item" th:classappend="${bookPage.last} ? disabled : _">
+                <a class="page-link" href="#" th:href="@{/books(page=${bookPage.number} + 1)}">Next</a></li>
+        </ul>
+    </nav>
+</div>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>
